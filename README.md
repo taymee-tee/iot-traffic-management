@@ -48,3 +48,56 @@ After setting up Anaconda, create a new environment and install the required Pyt
 conda create -n iot_env python=3.8
 conda activate iot_env
 pip install -r requirements.txt
+```
+
+# Project Setup
+
+## 1. Clone the Repository
+Clone the project repository to your local machine:
+
+```bash
+git clone https://github.com/taymee-tee/iot-traffic-management.git
+cd iot-traffic-management
+```
+## 2. Set Up Network Simulation (GNS3)
+- Launch GNS3 and create a new project.
+- Add devices like routers, cameras, and sensors to the workspace.
+- Configure static IPs for devices using the GNS3 console.
+
+## 3. Generate Traffic (Iperf3)
+Start the Iperf3 server on the router:
+
+```bash
+
+iperf3 -s -p 5201
+```
+Generate traffic from IoT devices (for example, a camera):
+
+```bash
+iperf3 -c 192.168.1.1 -p 5201 -u -b 2M -t 120
+```
+## 4. Capture Traffic (Wireshark)
+- Open Wireshark and start capturing packets.
+- Filter traffic for a specific IP address (e.g., ip.addr == 192.168.1.2).
+
+  
+## 5. Run AI Model for Traffic Classification
+Once the environment is set up and traffic is generated, use the AI models for classification.
+
+Launch Jupyter Notebook to run model training and analysis:
+
+```bash
+jupyter notebook
+```
+## 6. Flask API for Real-time Predictions
+Run the Flask API to receive real-time traffic predictions:
+
+```bash
+cd src
+python app.py
+```
+Send traffic data to the API for classification:
+
+```bash
+curl -X POST http://localhost:5000/predict -H "Content-Type: application/json" -d @traffic_data.json
+```
