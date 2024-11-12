@@ -7,7 +7,7 @@ This project focuses on enhancing the security and efficiency of IoT networks us
 **Key Features**:
 - **IoT Network Simulation** with GNS3
 - **Traffic Generation** using Iperf3
-- **Network Traffic Capture** via Wireshark
+- **Network Traffic Capture and Monitoring** via Wireshark
 - **AI Traffic Classification** using pre-trained models (CNN & LSTM)
 - **Real-time Traffic Analysis** using Flask API
 
