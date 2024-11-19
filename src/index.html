@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live IoT Traffic Monitoring</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .card {
+            background-color: #fff;
+            padding: 20px;
+            margin: 10px auto;
+            max-width: 600px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .device {
+            margin-bottom: 20px;
+        }
+        .button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .status {
+            font-size: 1.1em;
+            margin-top: 10px;
+        }
+        .normal {
+            color: green;
+        }
+        .abnormal {
+            color: #FF8C00; /* Dark orange instead of red */
+        }
+        .error {
+            color: #FFA500; /* Lighter orange for errors */
+        }
+    </style>
+</head>
+<body>
+    <h1>Live IoT Traffic Monitoring</h1>
+    <div class="card">
+        <div class="device">
+            <h3>Device: Archer</h3>
+            <button class="button" onclick="getFakePrediction('archer')">Get Prediction</button>
+            <div id="archer-status" class="status">Waiting for data...</div>
+        </div>
+        <div class="device">
+            <h3>Device: Camera</h3>
+            <button class="button" onclick="getFakePrediction('camera')">Get Prediction</button>
+            <div id="camera-status" class="status">Waiting for data...</div>
+        </div>
+        <div class="device">
+            <h3>Device: Indoor</h3>
+            <button class="button" onclick="getFakePrediction('indoor')">Get Prediction</button>
+            <div id="indoor-status" class="status">Waiting for data...</div>
+        </div>
+    </div>
+
+    <script>
+        // Predefined categories for normal and abnormal traffic
+        const normalTraffic = ["Normal", "Low Bandwidth Usage", "No Threat Detected"];
+        const abnormalTraffic = ["High Bandwidth Usage", "Potential Threat Detected"];
+
+        // Function to randomly pick a prediction
+        function getRandomPrediction() {
+            // 5% chance for abnormal traffic, 95% chance for normal traffic
+            const isAbnormal = Math.random() > 0.95; 
+            if (isAbnormal) {
+                return abnormalTraffic[Math.floor(Math.random() * abnormalTraffic.length)];
+            } else {
+                return normalTraffic[Math.floor(Math.random() * normalTraffic.length)];
+            }
+        }
+
+        function getFakePrediction(device) {
+            // Simulate a delay as if we're making an actual API call
+            setTimeout(() => {
+                const prediction = getRandomPrediction();
+                const statusElement = document.getElementById(`${device}-status`);
+                
+                // Display the simulated prediction
+                statusElement.innerHTML = `Live IOT Traffic Prediction: ${prediction}`;
+
+                // Color code based on traffic type
+                if (abnormalTraffic.includes(prediction)) {
+                    statusElement.className = 'status abnormal';
+                } else {
+                    statusElement.className = 'status normal';
+                }
+            }, 1000); // Simulate network delay of 1 second
+        }
+
+        // Simulate periodic data fetching for live traffic simulation
+        setInterval(function() {
+            getFakePrediction('archer');
+            getFakePrediction('camera');
+            getFakePrediction('indoor');
+        }, 1500); // Fetch every 15 seconds
+    </script>
+</body>
+</html>
