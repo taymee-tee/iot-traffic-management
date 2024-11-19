@@ -94,7 +94,7 @@ Run the Flask API to receive real-time traffic predictions:
 
 ```bash
 cd src
-python app.py
+python Appp.py
 ```
 Send traffic data to the API for classification:
 
